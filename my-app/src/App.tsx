@@ -11,7 +11,7 @@ function App() {
   return (
     <div id="body-pd" className={isExpanded ? 'body-pd' : ''}>
       <div className="logo-container">
-        <img src="logo512.png" alt="Logo" className="logo-image" />
+        <img src="LogoConfirm.png" alt="Logo" className="logo-image" />
       </div>
 
       <div className={`l-navbar ${isExpanded ? 'expander' : ''}`} id="navbar">
