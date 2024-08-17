@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@testing-library/react": "^16.0.0",
-    "qrcode.react": "^3.1.0"
-  }
-}
