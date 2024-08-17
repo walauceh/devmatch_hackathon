@@ -5,7 +5,7 @@ function Profile() {
   const [activeTab, setActiveTab] = useState('current');
   const [isEditing, setIsEditing] = useState(false);
   const [bio, setBio] = useState('Just Dreamy In A Winter Soul;');
-  const [profilePicture, setProfilePicture] = useState('/default-avatar.png'); // Default image path
+  const [profilePicture, setProfilePicture] = useState('profilePic.jpg');
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -32,21 +32,32 @@ function Profile() {
   };
 
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="profile">
         <div className="profile-avatar-container">
-          <img src={profilePicture} alt="Profile Avatar" width={100} height={100} className="profile-avatar" />
-          {isEditing && (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleProfilePictureChange}
-              className="upload-input"
+          <div className="avatar-wrapper">
+            <img
+              src={profilePicture}
+              alt="Profile Avatar"
+              className="profile-avatar"
+              onError={(e) => {
+                e.currentTarget.src = `${process.env.PUBLIC_URL}/profilePic.png`;
+              }}
             />
-          )}
+            {isEditing && (
+              <input
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                onChange={handleProfilePictureChange}
+              />
+            )}
+          </div>
         </div>
         <div className="profile-info">
-          <h1>Wint3r <span className="online">Online</span></h1>
+          <h1>
+            Wint3r <span className="online">Online</span>
+          </h1>
           {isEditing ? (
             <textarea
               value={bio}
@@ -70,13 +81,13 @@ function Profile() {
       </div>
 
       <div className="tabs">
-        <button 
+        <button
           className={`tab ${activeTab === 'current' ? 'active' : ''}`}
           onClick={() => setActiveTab('current')}
         >
-          Current Visa (3)
+          Current Visa (2)
         </button>
-        <button 
+        <button
           className={`tab ${activeTab === 'past' ? 'active' : ''}`}
           onClick={() => setActiveTab('past')}
         >
