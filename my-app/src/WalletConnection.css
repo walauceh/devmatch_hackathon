@@ -1,0 +1,140 @@
+.wallet-page {
+    padding: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    color: #8d5858;
+  }
+  
+  /* Header Section */
+  .balance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .balance-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flag-icon {
+    width: 50px;
+    margin-right: 1rem;
+  }
+  
+  .balance-details h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .balance-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e7f5e9;
+    padding: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .action-button:hover {
+    background-color: #c6e6c8;
+  }
+  
+  .action-button i {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .action-button p {
+    margin: 0;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .receive {
+    border: 2px solid #4caf50;
+    padding: 0.8rem;
+    background-color: #f0fdf1;
+  }
+  
+  /* Balance Information */
+  .balance-info {
+    margin-bottom: 2rem;
+  }
+  
+  .balance-info h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .balance-item {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .balance-item i {
+    margin-right: 0.5rem;
+  }
+  
+  .balance-item span {
+    margin-left: 1rem;
+    color: #777;
+  }
+  
+  /* Transactions Section */
+  .transactions {
+    margin-bottom: 2rem;
+  }
+  
+  .transactions h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .transactions-filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .search-bar {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 1rem;
+  }
+  
+  .filters-button,
+  .download-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+  
+  .filters-button:hover,
+  .download-button:hover {
+    background-color: #43a047;
+  }
+  

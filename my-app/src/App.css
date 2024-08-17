@@ -69,16 +69,18 @@
 *,::before,::after{
   box-sizing: border-box;
 }
-body{
-  position: relative;
+
+body {
+  position: relative; /* Ensure positioning context */
   margin: 0;
-  padding: 2rem 0 0 6.75rem;
-  font-family: var(--body-font);
-  font-size: var(--normal-font-size);
-  transition: .5s;
+  padding: 0; /* Adjust padding to fit the layout */
 }
+
+
+
 h1{
   margin: 0;
+  color: white;
 }
 ul{
   margin: 0;
@@ -89,40 +91,42 @@ a{
   text-decoration: none;
 }
 
-/*===== l NAV =====*/
+/* Adjust the sidebar to be absolutely positioned */
 .l-navbar {
   position: fixed;
-  top: 80px; /* Adjust to account for the logo height + margin */
+  top: 0;
   left: 0;
-  width: var(--nav-width);
-  height: calc(100vh - 60px); /* Full height minus top gap */
+  width: var(--nav-width); /* Default width of the navbar */
+  height: 100vh; /* Full height of the viewport */
   background-color: var(--bg-color);
   color: var(--white-color);
-  padding: 1.5rem 1.5rem 2rem;
-  transition: .5s;
-  z-index: var(--z-fixed);
+  padding: 1.5rem;
+  transition: width 0.3s ease; /* Smooth transition for width change */
+  z-index: var(--z-fixed); /* Ensure it stays on top */
   display: flex;
   flex-direction: column;
 }
 
 
+
 .logo-container {
   position: fixed;
-  top: 0; /* Position at the top of the viewport */
-  left: 5px;
-  width: 100%; /* Full width of the viewport */
-  height: auto; /* Adjust based on the logo size */
+  top: 10px; 
+  left: 15px;
+  width: auto; /* Adjusted to better fit the content */
+  height: auto; 
   display: flex;
-  z-index: var(--z-fixed); /* Ensure it's above other content */
+  align-items: center; /* Vertically center the logo if needed */
+  z-index: var(--z-fixed); 
 }
-
 
 .logo-image {
-  height: auto; /* Maintain aspect ratio */
-  max-height: 100%; /* Adjust to fit within the container */
-  width: 80px; /* Maintain aspect ratio */
-
+  height: auto; 
+  max-height: 100%; 
+  width: 60px; 
+  margin: 0; /* Keep margin 0 to avoid unintended spacing */
 }
+
 
 
 
@@ -135,6 +139,13 @@ a{
   overflow: hidden;
 }
 
+.l-navbar {
+  position: relative; /* Ensure this is relative for absolute positioning inside */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure the button stays at the bottom */
+}
+
 
 .nav__brand{
   display: flex;
@@ -142,6 +153,7 @@ a{
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  margin-top: 50px;
 }
 
 .nav__toggle{
@@ -152,9 +164,33 @@ a{
   color: rgb(255, 255, 255);
 }
 
-.nav__logo{
-  color: var(--white-color);
-  font-weight: 600;
+/* Hide the MetaLink title by default */
+.nav__logo {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin-left: 10px; /* Adjust for spacing */
+}
+
+/* Show the MetaLink title when the sidebar is expanded */
+.expander .nav__logo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Expanded sidebar state */
+.expander .l-navbar {
+  width: calc(var(--nav-width) + 9.25rem); /* Width when expanded */
+}
+
+/* Adjust the content to not be pushed around */
+.body-pd {
+  padding: 2rem 0 0 0; /* Remove left padding to fit content under the sidebar */
+}
+
+/* Optionally adjust the content when the sidebar is expanded */
+.expanded .body-pd {
+  padding-left: calc(var(--nav-width) + 9.25rem); /* Add padding to accommodate expanded sidebar */
 }
 
 
@@ -219,3 +255,95 @@ a{
 .rotate{
   transform: rotate(180deg);
 }
+
+
+
+/* ========================= Wallet Section ===================== */
+
+/* From Uiverse.io by adamgiebl */ 
+button {
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.7em 2em;
+  border: 3px solid #15559A;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #15559A;
+  text-decoration: none;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+button:before {
+  transition: 0.5s all ease;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  opacity: 0;
+  content: '';
+  background-color: #15559A;
+  z-index: -1;
+}
+
+button:hover, button:focus {
+  color: white;
+}
+
+button:hover:before, button:focus:before {
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+button:active {
+  transform: scale(0.9);
+}
+
+/* Icon in Wallet Container */
+.wallet-container i {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  color: var(--first-color);
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Add a smooth transition */
+}
+
+/* Wallet Button */
+.Connect-Wallet-Button {
+  opacity: 0;
+  visibility: hidden; /* Use visibility for smoother transition */
+  border-radius: 15px;
+  width: 80%; /* Adjust the width as needed */
+  margin: 0 auto;
+  font-size: 0.9rem; /* Reduce the font size of the button */
+  padding: 0.5rem 1rem; /* Adjust padding for better proportions */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Add transition */
+}
+
+/* Show the button when the sidebar is expanded */
+.expander .Connect-Wallet-Button {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure the wallet container also transitions smoothly */
+.wallet-container {
+  position: absolute;
+  bottom: 20px; /* Position the button at the bottom with some margin */
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the button horizontally */
+  padding: 1rem; /* Add some padding for better spacing */
+  transition: padding 0.3s ease; /* Smooth transition for padding */
+}
+
+

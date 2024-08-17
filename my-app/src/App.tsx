@@ -1,5 +1,8 @@
+// App.tsx
 import React, { useState } from 'react';
 import './App.css';
+import Sidebar from './Sidebar';
+import WalletConnection from './WalletConnection'; // Ensure this import is correct
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -9,34 +12,11 @@ function App() {
   };
 
   return (
-    <div id="body-pd" className={isExpanded ? 'body-pd' : ''}>
-      <div className="logo-container">
-        <img src="logo512.png" alt="Logo" className="logo-image" />
-      </div>
-
-      <div className={`l-navbar ${isExpanded ? 'expander' : ''}`} id="navbar">
-        <nav className="nav">
-          <div>
-            <div className="nav__brand">
-              <i className="bx bx-menu nav__toggle" id="nav-toggle" onClick={toggleNav}></i>
-            </div>
-            <div className="nav__list">
-              <a href="#" className="nav__link active">
-              <i className='bx bx-wallet'></i>
-                <span className="nav__name">My Wallet</span>
-              </a>
-              <a href="#" className="nav__link">
-              <i className='bx bxs-credit-card-alt'></i>
-                <span className="nav__name">View Card</span>
-              </a>
-
-              <a href="#" className="nav__link">
-              <i className ='bx bxs-file'></i>
-                <span className="nav__name">Document</span>
-              </a>
-            </div>
-          </div>
-        </nav>
+    <div className={`App ${isExpanded ? 'expanded' : ''}`}>
+      <Sidebar isExpanded={isExpanded} toggleNav={toggleNav} />
+      <div className="body-pd">
+        <WalletConnection /> {/* Ensure this component is properly rendered */}
+        {/* Other content */}
       </div>
     </div>
   );
