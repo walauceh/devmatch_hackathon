@@ -69,6 +69,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   transition: padding-left 0.3s ease; /* Smooth transition for padding change */
+  background-color: #E9F1F6;
 }
 
 #body-pd {
