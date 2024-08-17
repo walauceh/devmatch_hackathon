@@ -115,7 +115,7 @@ function App() {
       case 'viewCard':
         return <div>View Card Page</div>; // Replace with your component
       case 'document':
-        return <div>Visa Page</div>; // Replace with your component
+        return <div>Document Page</div>; // Replace with your component
       default:
         return <div>Home Page</div>; // Replace with your home component
     }
