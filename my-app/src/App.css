@@ -1,3 +1,4 @@
+/* General Styles */
 .App {
   text-align: center;
 }
@@ -37,97 +38,123 @@
   }
 }
 
-
-
-
 /* ============================================= */
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-/*===== VARIABLES CSS =====*/
-:root{
+/* CSS Variables */
+:root {
   --nav-width: 92px;
-
-  /*===== Colores =====*/
-  --first-color: #ffffff;
-  --hover-color: #9ed2f5;
+  --expanded-nav-width: calc(var(--nav-width) + 9.25rem); /* Expanded width */
+  --first-color: white; /* White text */
+  --hover-color: #4ea7df;
   --bg-color: #15559A;
+  --active-color: #15559A; /* Color when the button is active */
   --sub-color: #E9F1F6;
-  --white-color: #15559A;
-  
-  /*===== Fuente y tipografia =====*/
+  --white-color: #ffffff; /* White for icons */
   --body-font: 'Poppins', sans-serif;
   --normal-font-size: 1rem;
   --small-font-size: .65rem;
-  
-  /*===== z index =====*/
   --z-fixed: 100;
 }
 
-
-/*===== BASE =====*/
-*,::before,::after{
+/* Base Styles */
+*, ::before, ::after {
   box-sizing: border-box;
 }
-body{
+body {
   position: relative;
   margin: 0;
-  padding: 2rem 0 0 6.75rem;
+  padding: 0;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  transition: .5s;
+  transition: padding-left 0.3s ease; /* Smooth transition for padding change */
 }
-h1{
+
+#body-pd {
+  padding-left: var(--nav-width); /* Default padding with collapsed sidebar */
+  transition: padding-left 0.3s ease; /* Smooth transition for expanded state */
+}
+
+#body-pd.body-pd {
+  padding-left: var(--expanded-nav-width); /* Adjust padding when sidebar is expanded */
+}
+
+h1 {
   margin: 0;
 }
-ul{
+ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-a{
+a {
   text-decoration: none;
 }
 
-/*===== l NAV =====*/
+/* Navbar Styles */
 .l-navbar {
   position: fixed;
-  top: 80px; /* Adjust to account for the logo height + margin */
+  top: 0;
   left: 0;
   width: var(--nav-width);
-  height: calc(100vh - 60px); /* Full height minus top gap */
+  height: 100vh;
   background-color: var(--bg-color);
-  color: var(--white-color);
-  padding: 1.5rem 1.5rem 2rem;
-  transition: .5s;
+  color: var(--first-color);
+  padding: 1.5rem;
+  transition: width 0.3s ease;
   z-index: var(--z-fixed);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
+/* Expanded Sidebar */
+.l-navbar.expander {
+  width: var(--expanded-nav-width);
+}
 
+/* Content Padding Adjustment */
+.body-pd {
+  padding-left: var(--nav-width);
+}
+
+.l-navbar.expander ~ .body-pd {
+  padding-left: var(--expanded-nav-width);
+}
+
+/* Logo Container */
 .logo-container {
   position: fixed;
-  top: 0; /* Position at the top of the viewport */
+  top: 2rem;
   left: 5px;
-  width: 100%; /* Full width of the viewport */
-  height: auto; /* Adjust based on the logo size */
+  width: 100%;
   display: flex;
-  z-index: var(--z-fixed); /* Ensure it's above other content */
+  align-items: center;
+  z-index: var(--z-fixed);
 }
-
 
 .logo-image {
-  height: auto; /* Maintain aspect ratio */
-  max-height: 100%; /* Adjust to fit within the container */
-  width: 80px; /* Maintain aspect ratio */
-
+  height: auto;
+  max-height: 100%;
+  width: 80px;
 }
 
+/* Show/Hide Logo Text */
+.nav__logo {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin-left: 10px;
+}
 
+.l-navbar.expander .nav__logo {
+  opacity: 1;
+  visibility: visible;
+}
 
-/*===== NAV =====*/
-.nav{
+/* Navigation Styles */
+.nav {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -135,87 +162,145 @@ a{
   overflow: hidden;
 }
 
-
-.nav__brand{
+.nav__brand {
   display: flex;
-  grid-template-columns: max-content max-content;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
 }
 
-.nav__toggle{
+.nav__toggle {
+  margin-top: 100px;
   font-size: 1.25rem;
   padding: .75rem;
   cursor: pointer;
   margin-left: 0;
-  color: rgb(255, 255, 255);
+  color: var(--white-color); /* Keep the toggle icon white */
 }
-
-.nav__logo{
-  color: var(--white-color);
-  font-weight: 600;
-}
-
-
 
 .nav__link {
   display: grid;
   grid-template-columns: max-content max-content;
   align-items: center;
-  column-gap: .75rem;
   padding: .75rem;
-  color: var(--first-color);
+  color: var(--first-color); /* Default text color: black */
   border-radius: .5rem;
   margin-bottom: 1rem;
-  transition: .3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
 
-
-
-.nav__link:hover{
+.nav__link:hover {
   background-color: var(--hover-color);
+  color: var(--bg-color);
 }
-.nav__icon{
-  color: black;
+
+.nav__link.active {
+  background-color: var(--hover-color);
+  color: var(--active-color); /* Text color changes to #15559A when active */
+}
+
+/* Icon Styles */
+.nav__icon {
   font-size: 2.55rem;
-
+  color: var(--white-color); /* Keep the icons white */
 }
-.nav__name{
+
+.nav__name {
   font-size: var(--small-font-size);
-  color: rgb(255, 255, 255);
-  margin-left: 5px;
+  color: var(--first-color); /* Updated to black */
+  margin-left: 2rem;
 }
 
-/*Expander menu*/
-.expander{
+/* Expander Menu */
+.expander {
   width: calc(var(--nav-width) + 9.25rem);
 }
 
-/*Add padding body*/
-.body-pd{
-  padding: 2rem 0 0 16rem;
+/* ========================= Wallet Section ===================== */
+
+/* From Uiverse.io by adamgiebl */ 
+button {
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  padding: 0.7em 2em;
+  border: 3px solid #15559A;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #15559A;
+  text-decoration: none;
+  transition: 0.3s ease all;
+  z-index: 1;
 }
 
-/*Active links menu*/
-.active {
-  background-color: var(--first-color);
-  color: var(--white-color);
+button:before {
+  transition: 0.5s all ease;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  opacity: 0;
+  content: '';
+  background-color: #15559A;
+  z-index: -1;
 }
 
-.active .nav__icon,
-.active .nav__name {
-  color: var(--white-color);
+button:hover, button:focus {
+  color: white;
 }
 
-
-/*Show collapse*/
-.showCollapse{
-  display: block;
+button:hover:before, button:focus:before {
+  transition: 0.5s all ease;
+  left: 0;
+  right: 0;
+  opacity: 1;
 }
 
-/*Rotate icon*/
-.rotate{
-  transform: rotate(180deg);
+button:active {
+  transform: scale(0.9);
+}
+
+/* Icon in Wallet Container */
+.wallet-container i {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  color: var(--white-color); /* Keep the wallet icon white */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Add a smooth transition */
+}
+
+/* Wallet Button */
+.Connect-Wallet-Button {
+  opacity: 0;
+  visibility: hidden; /* Use visibility for smoother transition */
+  border-radius: 15px;
+  width: 80%; /* Adjust the width as needed */
+  margin: 0 auto;
+  font-size: 0.9rem; /* Reduce the font size of the button */
+  padding: 0.5rem 1rem; /* Adjust padding for better proportions */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Add transition */
+}
+
+/* Show the button when the sidebar is expanded */
+.expander .Connect-Wallet-Button {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure the wallet container also transitions smoothly */
+.wallet-container {
+  position: absolute;
+  bottom: 20px; /* Position the button at the bottom with some margin */
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the button horizontally */
+  padding: 1rem; /* Add some padding for better spacing */
+  transition: padding 0.3s ease; /* Smooth transition for padding */
 }
