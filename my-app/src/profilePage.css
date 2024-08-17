@@ -1,138 +1,219 @@
-.container {
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-avatar-container {
-    position: relative;
-  }
-  
-  .profile-avatar {
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-  
-  .upload-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .profile-info {
-    flex: 1;
-  }
-  
-  .profile-info h1 {
-    font-size: 24px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-info h1 .online {
-    background-color: #4caf50;
-    color: white;
-    font-size: 14px;
-    padding: 3px 8px;
-    border-radius: 12px;
-    margin-left: 10px;
-  }
-  
-  .bio-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .profile-info p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .button-container {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .edit-button,
-  .save-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .edit-button:hover,
-  .save-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Tabs styles */
-  .tabs {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .tab {
-    font-size: 20px;
-    font-weight: bold;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #777;
-    transition: color 0.3s ease;
-    padding: 5px;
-  }
-  
-  .tab.active {
-    background: linear-gradient(to right, #000000, #15559A);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 22px;
-  }
-  
-  /* Horizontal line below the tabs */
-  .tabs-divider {
-    border: 0;
-    height: 2px;
-    background-color: #007bff;
-    margin: 20px 0;
-  }
-  
-  /* Visa items */
-  .visa-items {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .visa-item {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .visa-img {
-    width: 300px; /* Make the image larger */
-    height: auto;
-    border-radius: 10px;
-  }  
+/* Container for the entire profile page */
+.profile-container {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Profile section layout */
+.profile {
+  display: flex;
+  align-items: center; /* Aligns items at the top */
+  margin-bottom: 20px;
+}
+
+/* Profile avatar container with relative positioning */
+.profile-avatar-container {
+  position: relative;
+}
+
+/* Profile avatar image */
+.profile-avatar {
+  width: 100px; /* Set the width of the circle */
+  height: 100px; /* Set the height of the circle */
+  border-radius: 50%; /* Make the image a perfect circle */
+  margin-right: 20px;
+  object-fit: cover; /* Ensure the image scales correctly within the circle */
+}
+
+/* Hidden file input for uploading a new profile picture */
+.upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Profile information section */
+.profile-info {
+  flex: 1;
+}
+
+/* Heading with the profile name */
+.profile-info h1 {
+  font-size: 24px;
+  margin: 0 0 10px 0; /* Adds space below the name */
+  display: flex;
+  align-items: center;
+}
+
+/* Online status indicator next to the name */
+/* Status styles based on the selected option */
+.status {
+  font-size: 14px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+}
+
+.status.online {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status.away {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+.status.doNotDisturb {
+  background-color: #f44336;
+  color: white;
+}
+
+.status.invisible {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+/* Status dropdown styling */
+.status-select {
+  margin-top: 10px;
+}
+
+.status-dropdown {
+  padding: 5px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+/* Bio input field */
+.bio-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none; /* Prevents resizing of the textarea */
+}
+
+/* Static bio text (when not editing) */
+.profile-info p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Container for the Edit and Save buttons */
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px; /* Adds space above the buttons */
+}
+
+/* General button styles */
+.edit-button,
+.save-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover,
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+/* Tabs section */
+.tabs {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+/* Individual tab styling */
+.tab {
+  font-size: 24px; /* Increased font size */
+  font-weight: bold;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #000000; /* Default text color */
+  transition: color 0.3s ease;
+}
+
+/* Disable hover effect */
+.tab:hover {
+  color: #000000;
+}
+
+/* Styling for the active tab */
+.tab.active {
+  background: none;
+  border: none;
+  padding: 0;
+  color: transparent;
+  background-image: linear-gradient(to right, #000000, #15559A); /* Gradient for active tab */
+  -webkit-background-clip: text;
+  background-clip: text;
+  cursor: default;
+}
+
+/* Divider line below tabs */
+.tabs-divider {
+  border: 0;
+  height: 2px;
+  background-color: #007bff;
+  margin: 20px 0;
+}
+
+/* Visa items layout */
+.visa-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Reduce the space between visa items */
+  justify-content: flex-start;
+  margin-left: 0; /* Remove left margin to move items closer to the edge */
+  padding-left: 0; /* Ensure there is no extra padding */
+}
+
+.visa-item {
+  width: 300px; /* Fixed width for visa items */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left within each visa item */
+}
+
+.visa-img {
+  width: 300px; /* Set the width to 500px */
+  height: 300px; /* Set the height to 50px */
+  object-fit: cover; /* Ensure the image scales correctly without distorting */
+  border-radius: 10px; /* Optional: adds rounded corners */
+}
+
+.dropdown-content {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  max-width: 500px; /* Ensure the dropdown content is within the visa item width */
+  width: 100%;
+}
+
+.document-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}

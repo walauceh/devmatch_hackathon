@@ -5,7 +5,8 @@ function Profile() {
   const [activeTab, setActiveTab] = useState('current');
   const [isEditing, setIsEditing] = useState(false);
   const [bio, setBio] = useState('Just Dreamy In A Winter Soul;');
-  const [profilePicture, setProfilePicture] = useState('/default-avatar.png'); // Default image path
+  const [profilePicture, setProfilePicture] = useState('profilePic.jpg');
+  const [status, setStatus] = useState('online');
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -31,22 +32,69 @@ function Profile() {
     }
   };
 
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStatus(e.target.value);
+  };
+
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="profile">
         <div className="profile-avatar-container">
-          <img src={profilePicture} alt="Profile Avatar" width={100} height={100} className="profile-avatar" />
-          {isEditing && (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleProfilePictureChange}
-              className="upload-input"
+          <div className="avatar-wrapper">
+            <img
+              src={profilePicture}
+              alt="Profile Avatar"
+              className="profile-avatar"
+              onError={(e) => {
+                e.currentTarget.src = `${process.env.PUBLIC_URL}/profilePic.png`;
+              }}
             />
-          )}
+            {isEditing && (
+              <input
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                onChange={handleProfilePictureChange}
+              />
+            )}
+          </div>
         </div>
         <div className="profile-info">
-          <h1>Wint3r <span className="online">Online</span></h1>
+          <h1>
+            Wint3r{' '}
+            <span className={`status ${status}`}>
+              {status === 'invisible' ? (
+                <span>
+                  <span role="img" aria-label="invisible">
+                    👻
+                  </span>{' '}
+                  Invisible
+                </span>
+              ) : status === 'doNotDisturb' ? (
+                <span>
+                  <span role="img" aria-label="do not disturb">
+                    🛑
+                  </span>{' '}
+                  Do Not Disturb
+                </span>
+              ) : status === 'away' ? (
+                <span>
+                  <span role="img" aria-label="away">
+                    🌙
+                  </span>{' '}
+                  Away
+                </span>
+              ) : (
+                <span>
+                  <span role="img" aria-label="online">
+                    ✅
+                  </span>{' '}
+                  Online
+                </span>
+              )}
+            </span>
+          </h1>
+
           {isEditing ? (
             <textarea
               value={bio}
@@ -56,6 +104,20 @@ function Profile() {
           ) : (
             <p>{bio}</p>
           )}
+          <div className="status-select">
+            <label htmlFor="status">Change Status:</label>
+            <select
+              id="status"
+              value={status}
+              onChange={handleStatusChange}
+              className="status-dropdown"
+            >
+              <option value="online">Online</option>
+              <option value="away">Away</option>
+              <option value="doNotDisturb">Do Not Disturb</option>
+              <option value="invisible">Invisible</option>
+            </select>
+          </div>
           <div className="button-container">
             <button className="edit-button" onClick={handleEdit}>
               Edit
@@ -70,17 +132,17 @@ function Profile() {
       </div>
 
       <div className="tabs">
-        <button 
+        <button
           className={`tab ${activeTab === 'current' ? 'active' : ''}`}
           onClick={() => setActiveTab('current')}
         >
-          Current Visa (3)
+          Current Visa {activeTab === 'current' && '(2)'}
         </button>
-        <button 
+        <button
           className={`tab ${activeTab === 'past' ? 'active' : ''}`}
           onClick={() => setActiveTab('past')}
         >
-          Past Visa
+          Past Visa {activeTab === 'past' && '(3)'}
         </button>
       </div>
 
@@ -93,32 +155,101 @@ function Profile() {
 }
 
 function CurrentVisa() {
+  const [visibleDropdownIndex, setVisibleDropdownIndex] = useState<number | null>(null);
+
+  const toggleDropdown = (index: number) => {
+    setVisibleDropdownIndex(visibleDropdownIndex === index ? null : index);
+  };
+
   return (
     <div className="visa-items">
       <div className="visa-item">
-        <img src="/item1.png" alt="Visa 1" className="visa-img" />
+        <img
+          src="/Visa1.webp"
+          alt="Visa 1"
+          className="visa-img"
+          onClick={() => toggleDropdown(0)}
+          style={{ cursor: 'pointer' }}
+        />
+        {visibleDropdownIndex === 0 && (
+          <div className="dropdown-content">
+            <h3>Visa Document</h3>
+            <img src="/documentImage1.webp" alt="Document" className="document-img" />
+          </div>
+        )}
       </div>
       <div className="visa-item">
-        <img src="/item2.png" alt="Visa 2" className="visa-img" />
-      </div>
-      <div className="visa-item">
-        <img src="/item3.png" alt="Visa 3" className="visa-img" />
+        <img
+          src="/Visa2.webp"
+          alt="Visa 2"
+          className="visa-img"
+          onClick={() => toggleDropdown(1)}
+          style={{ cursor: 'pointer' }}
+        />
+        {visibleDropdownIndex === 1 && (
+          <div className="dropdown-content">
+            <h3>Visa Document</h3>
+            <img src="/documentImage2.webp" alt="Document" className="document-img" />
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 function PastVisa() {
+  const [visibleDropdownIndex, setVisibleDropdownIndex] = useState<number | null>(null);
+
+  const toggleDropdown = (index: number) => {
+    setVisibleDropdownIndex(visibleDropdownIndex === index ? null : index);
+  };
+
   return (
     <div className="visa-items">
       <div className="visa-item">
-        <img src="/item4.png" alt="Visa 4" className="visa-img" />
+        <img
+          src="/Visa3.webp"
+          alt="Visa 3"
+          className="visa-img"
+          onClick={() => toggleDropdown(0)}
+          style={{ cursor: 'pointer' }}
+        />
+        {visibleDropdownIndex === 0 && (
+          <div className="dropdown-content">
+            <h3>Past Visa Document</h3>
+            <img src="/documentImage3.webp" alt="Document" className="document-img" />
+          </div>
+        )}
       </div>
       <div className="visa-item">
-        <img src="/item5.png" alt="Visa 5" className="visa-img" />
+        <img
+          src="/Visa4.webp"
+          alt="Visa 4"
+          className="visa-img"
+          onClick={() => toggleDropdown(1)}
+          style={{ cursor: 'pointer' }}
+        />
+        {visibleDropdownIndex === 1 && (
+          <div className="dropdown-content">
+            <h3>Past Visa Document</h3>
+            <img src="/documentImage4.webp" alt="Document" className="document-img" />
+          </div>
+        )}
       </div>
       <div className="visa-item">
-        <img src="/item6.png" alt="Visa 6" className="visa-img" />
+        <img
+          src="/Visa5.webp"
+          alt="Visa 5"
+          className="visa-img"
+          onClick={() => toggleDropdown(2)}
+          style={{ cursor: 'pointer' }}
+        />
+        {visibleDropdownIndex === 2 && (
+          <div className="dropdown-content">
+            <h3>Past Visa Document</h3>
+            <img src="/documentImage5.webp" alt="Document" className="document-img" />
+          </div>
+        )}
       </div>
     </div>
   );
