@@ -7,10 +7,12 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/node": "^16.18.105",
     "ethers": "^6.13.2",
+    "framer-motion": "^11.3.28",
     "ionicons": "^7.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
     "typescript": "^4.9.5"
   },
   "scripts": {
