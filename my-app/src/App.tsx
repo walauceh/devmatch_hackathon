@@ -120,10 +120,6 @@ function App() {
 
   return (
     <div id="body-pd" className={isExpanded ? 'body-pd' : ''}>
-      <div className="logo-container">
-        <img src="logo512.png" alt="Logo" className="logo-image" />
-      </div>
-
       {/* Sidebar component merged into App.tsx */}
       <div className={`l-navbar ${isExpanded ? 'expander' : ''}`} id="navbar">
         <nav className="nav">

@@ -69,7 +69,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   transition: padding-left 0.3s ease; /* Smooth transition for padding change */
-  background-color: #E9F1F6;
+  background-color: #E9F1F6;
 }
 
 #body-pd {
@@ -221,7 +221,7 @@ a {
 /* ========================= Wallet Section ===================== */
 
 /* From Uiverse.io by adamgiebl */ 
-button {
+.Connect-Wallet-Button {
   font-size: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -239,7 +239,7 @@ button {
   z-index: 1;
 }
 
-button:before {
+.Connect-Wallet-Button:before {
   transition: 0.5s all ease;
   position: absolute;
   top: 0;
@@ -252,18 +252,18 @@ button:before {
   z-index: -1;
 }
 
-button:hover, button:focus {
+.Connect-Wallet-Button:hover, .Connect-Wallet-Button:focus {
   color: white;
 }
 
-button:hover:before, button:focus:before {
+.Connect-Wallet-Button:hover:before, .Connect-Wallet-Button:focus:before {
   transition: 0.5s all ease;
   left: 0;
   right: 0;
   opacity: 1;
 }
 
-button:active {
+.Connect-Wallet-Button:active {
   transform: scale(0.9);
 }
 
