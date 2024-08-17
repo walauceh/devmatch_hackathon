@@ -1,0 +1,158 @@
+.cards-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-button {
+    background-color: #c2f07f;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 5px;
+  }
+  
+  .cards-section {
+    margin-top: 20px;
+  }
+  
+  .card-option,
+  .card-item {
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Reduce padding */
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    margin-bottom: 10px; /* Reduce margin */
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%; /* Set a maximum width for the card */
+  }
+  
+  .card-option .icon-placeholder {
+    font-size: 20px; /* Reduce size of the icon */
+    padding: 8px; /* Reduce padding */
+    margin-right: 10px; /* Reduce space between icon and text */
+  }
+  
+  .card-item .card-image-placeholder {
+    margin-right: 10px; /* Reduce margin between image and text */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card-item img {
+    margin-right: 2rem; /* Reduce margin between image and text */
+    width: 20rem; /* Adjust image size */
+    height: auto;
+    border-radius: 22px;
+  }
+  
+  .card-option h2,
+  .card-item h2 {
+    font-size: 18px; /* Smaller font for titles */
+  }
+  
+  .card-option p,
+  .card-item p {
+    font-size: 14px; /* Smaller font for description */
+  }
+  
+  .arrow-icon {
+    margin-left: auto;
+    font-size: 18px; /* Reduce size of the arrow icon */
+  }
+  
+  .footer {
+    margin-top: 30px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .footer a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  .choose-card-section {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .choose-card-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .card-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card-option-large {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-info {
+    max-width: 60%;
+    text-align: left;
+  }
+  
+  .card-info h3 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .card-info p {
+    margin: 10px 0;
+  }
+  
+  .card-info .tag {
+    display: inline-block;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .card-info .cta {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .card-image img {
+    max-width: 200px;
+    border-radius: 12px;
+  }
+  

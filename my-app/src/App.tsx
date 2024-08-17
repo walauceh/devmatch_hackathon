@@ -4,6 +4,9 @@ import Profile from './profile';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateWalletModal from './CreateWalletModal';
+import Visa from './Visa-Page';
+import Card from './CardPage';
+import Walletpage from './Wallet-Page';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -110,11 +113,11 @@ function App() {
       case 'profile':
         return <Profile />;
       case 'viewCard':
-        return <div>View Card Page</div>;
+        return <div>View Card Page</div>; // Replace with your component
       case 'document':
-        return <div>Document Page</div>;
+        return <div>Document Page</div>; // Replace with your component
       default:
-        return <div>Home Page</div>;
+        return <div>Home Page</div>; // Replace with your home component
     }
   };
 
