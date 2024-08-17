@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Profile from './profile';
+import Visa from './Visa-Page';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -21,7 +22,7 @@ function App() {
       case 'viewCard':
         return <div>View Card Page</div>; // Replace with your component
       case 'document':
-        return <div>Document Page</div>; // Replace with your component
+        return <Visa />; // Replace with your component
       default:
         return <div>Home Page</div>; // Replace with your home component
     }

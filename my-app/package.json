@@ -8,6 +8,7 @@
     "@types/node": "^16.18.105",
     "ethers": "^6.13.2",
     "ionicons": "^7.4.0",
+    "qrcode.react": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
