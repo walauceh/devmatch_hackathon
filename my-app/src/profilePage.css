@@ -1,0 +1,138 @@
+.container {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-avatar-container {
+    position: relative;
+  }
+  
+  .profile-avatar {
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .upload-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .profile-info h1 {
+    font-size: 24px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-info h1 .online {
+    background-color: #4caf50;
+    color: white;
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+  }
+  
+  .bio-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .profile-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-button,
+  .save-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-button:hover,
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Tabs styles */
+  .tabs {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .tab {
+    font-size: 20px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    transition: color 0.3s ease;
+    padding: 5px;
+  }
+  
+  .tab.active {
+    background: linear-gradient(to right, #000000, #15559A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 22px;
+  }
+  
+  /* Horizontal line below the tabs */
+  .tabs-divider {
+    border: 0;
+    height: 2px;
+    background-color: #007bff;
+    margin: 20px 0;
+  }
+  
+  /* Visa items */
+  .visa-items {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .visa-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .visa-img {
+    width: 300px; /* Make the image larger */
+    height: auto;
+    border-radius: 10px;
+  }  
