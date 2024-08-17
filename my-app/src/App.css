@@ -1,3 +1,4 @@
+/* General Styles */
 .App {
   text-align: center;
 }
@@ -37,101 +38,123 @@
   }
 }
 
-
-
-
 /* ============================================= */
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-/*===== VARIABLES CSS =====*/
-:root{
+/* CSS Variables */
+:root {
   --nav-width: 92px;
-
-  /*===== Colores =====*/
-  --first-color: #ffffff;
-  --hover-color: #9ed2f5;
+  --expanded-nav-width: calc(var(--nav-width) + 9.25rem); /* Expanded width */
+  --first-color: white; /* White text */
+  --hover-color: #4ea7df;
   --bg-color: #15559A;
+  --active-color: #15559A; /* Color when the button is active */
   --sub-color: #E9F1F6;
-  --white-color: #15559A;
-  
-  /*===== Fuente y tipografia =====*/
+  --white-color: #ffffff; /* White for icons */
   --body-font: 'Poppins', sans-serif;
   --normal-font-size: 1rem;
   --small-font-size: .65rem;
-  
-  /*===== z index =====*/
   --z-fixed: 100;
 }
 
-
-/*===== BASE =====*/
-*,::before,::after{
+/* Base Styles */
+*, ::before, ::after {
   box-sizing: border-box;
 }
-
 body {
-  position: relative; /* Ensure positioning context */
+  position: relative;
   margin: 0;
-  padding: 0; /* Adjust padding to fit the layout */
+  padding: 0;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  transition: padding-left 0.3s ease; /* Smooth transition for padding change */
 }
 
-
-
-h1{
-  margin: 0;
-  color: white;
+#body-pd {
+  padding-left: var(--nav-width); /* Default padding with collapsed sidebar */
+  transition: padding-left 0.3s ease; /* Smooth transition for expanded state */
 }
-ul{
+
+#body-pd.body-pd {
+  padding-left: var(--expanded-nav-width); /* Adjust padding when sidebar is expanded */
+}
+
+h1 {
+  margin: 0;
+}
+ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-a{
+a {
   text-decoration: none;
 }
 
-/* Adjust the sidebar to be absolutely positioned */
+/* Navbar Styles */
 .l-navbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: var(--nav-width); /* Default width of the navbar */
-  height: 100vh; /* Full height of the viewport */
+  width: var(--nav-width);
+  height: 100vh;
   background-color: var(--bg-color);
-  color: var(--white-color);
+  color: var(--first-color);
   padding: 1.5rem;
-  transition: width 0.3s ease; /* Smooth transition for width change */
-  z-index: var(--z-fixed); /* Ensure it stays on top */
+  transition: width 0.3s ease;
+  z-index: var(--z-fixed);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
+/* Expanded Sidebar */
+.l-navbar.expander {
+  width: var(--expanded-nav-width);
+}
 
+/* Content Padding Adjustment */
+.body-pd {
+  padding-left: var(--nav-width);
+}
 
+.l-navbar.expander ~ .body-pd {
+  padding-left: var(--expanded-nav-width);
+}
+
+/* Logo Container */
 .logo-container {
   position: fixed;
-  top: 10px; 
-  left: 15px;
-  width: auto; /* Adjusted to better fit the content */
-  height: auto; 
+  top: 2rem;
+  left: 5px;
+  width: 100%;
   display: flex;
-  align-items: center; /* Vertically center the logo if needed */
-  z-index: var(--z-fixed); 
+  align-items: center;
+  z-index: var(--z-fixed);
 }
 
 .logo-image {
-  height: auto; 
-  max-height: 100%; 
-  width: 60px; 
-  margin: 0; /* Keep margin 0 to avoid unintended spacing */
+  height: auto;
+  max-height: 100%;
+  width: 80px;
 }
 
+/* Show/Hide Logo Text */
+.nav__logo {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin-left: 10px;
+}
 
+.l-navbar.expander .nav__logo {
+  opacity: 1;
+  visibility: visible;
+}
 
-
-/*===== NAV =====*/
-.nav{
+/* Navigation Styles */
+.nav {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -139,124 +162,60 @@ a{
   overflow: hidden;
 }
 
-.l-navbar {
-  position: relative; /* Ensure this is relative for absolute positioning inside */
+.nav__brand {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensure the button stays at the bottom */
-}
-
-
-.nav__brand{
-  display: flex;
-  grid-template-columns: max-content max-content;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
-  margin-top: 50px;
 }
 
-.nav__toggle{
+.nav__toggle {
+  margin-top: 100px;
   font-size: 1.25rem;
   padding: .75rem;
   cursor: pointer;
   margin-left: 0;
-  color: rgb(255, 255, 255);
+  color: var(--white-color); /* Keep the toggle icon white */
 }
-
-/* Hide the MetaLink title by default */
-.nav__logo {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  margin-left: 10px; /* Adjust for spacing */
-}
-
-/* Show the MetaLink title when the sidebar is expanded */
-.expander .nav__logo {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Expanded sidebar state */
-.expander .l-navbar {
-  width: calc(var(--nav-width) + 9.25rem); /* Width when expanded */
-}
-
-/* Adjust the content to not be pushed around */
-.body-pd {
-  padding: 2rem 0 0 0; /* Remove left padding to fit content under the sidebar */
-}
-
-/* Optionally adjust the content when the sidebar is expanded */
-.expanded .body-pd {
-  padding-left: calc(var(--nav-width) + 9.25rem); /* Add padding to accommodate expanded sidebar */
-}
-
-
 
 .nav__link {
   display: grid;
   grid-template-columns: max-content max-content;
   align-items: center;
-  column-gap: .75rem;
   padding: .75rem;
-  color: var(--first-color);
+  color: var(--first-color); /* Default text color: black */
   border-radius: .5rem;
   margin-bottom: 1rem;
-  transition: .3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
 
-
-
-.nav__link:hover{
+.nav__link:hover {
   background-color: var(--hover-color);
+  color: var(--bg-color);
 }
-.nav__icon{
-  color: black;
+
+.nav__link.active {
+  background-color: var(--hover-color);
+  color: var(--active-color); /* Text color changes to #15559A when active */
+}
+
+/* Icon Styles */
+.nav__icon {
   font-size: 2.55rem;
-
+  color: var(--white-color); /* Keep the icons white */
 }
-.nav__name{
+
+.nav__name {
   font-size: var(--small-font-size);
-  color: rgb(255, 255, 255);
-  margin-left: 5px;
+  color: var(--first-color); /* Updated to black */
+  margin-left: 2rem;
 }
 
-/*Expander menu*/
-.expander{
+/* Expander Menu */
+.expander {
   width: calc(var(--nav-width) + 9.25rem);
 }
-
-/*Add padding body*/
-.body-pd{
-  padding: 2rem 0 0 16rem;
-}
-
-/*Active links menu*/
-.active {
-  background-color: var(--first-color);
-  color: var(--white-color);
-}
-
-.active .nav__icon,
-.active .nav__name {
-  color: var(--white-color);
-}
-
-
-/*Show collapse*/
-.showCollapse{
-  display: block;
-}
-
-/*Rotate icon*/
-.rotate{
-  transform: rotate(180deg);
-}
-
-
 
 /* ========================= Wallet Section ===================== */
 
@@ -311,7 +270,7 @@ button:active {
 .wallet-container i {
   font-size: 1.5rem;
   margin-right: 0.5rem;
-  color: var(--first-color);
+  color: var(--white-color); /* Keep the wallet icon white */
   transition: opacity 0.3s ease, transform 0.3s ease; /* Add a smooth transition */
 }
 
@@ -345,5 +304,3 @@ button:active {
   padding: 1rem; /* Add some padding for better spacing */
   transition: padding 0.3s ease; /* Smooth transition for padding */
 }
-
-
