@@ -3,17 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aptos-labs/ts-sdk": "^1.27.0",
+    "@stablelib/random": "^2.0.0",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/node": "^16.18.105",
+    "@testing-library/user-event": "^14.5.2",
+    "@thirdweb-dev/react": "^4.9.4",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "@types/node": "^22.4.0",
+    "@walletconnect/client": "^1.8.0",
+    "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
     "framer-motion": "^11.3.28",
     "ionicons": "^7.4.0",
+    "npm-force-resolutions": "^0.0.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
-    "typescript": "^4.9.5"
+    "thirdweb": "^5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,7 +53,8 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "ajv": "^7.2.4",
+    "ajv": "^8.17.1",
+    "typescript": "^5.5.4",
     "web-vitals": "^4.2.3"
   }
 }

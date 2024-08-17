@@ -30,19 +30,39 @@ function App() {
   const openModal = () => setIsModalOpen(true); // Function to open the modal
   const closeModal = () => setIsModalOpen(false); // Function to close the modal
 
-  const handleCreateWallet = (walletData: { name: string; email: string; ic: string; walletName: string }) => {
+  const handleCreateWallet = async (walletData: { name: string; email: string; ic: string; walletName: string }) => {
     console.log("Creating wallet with data:", walletData);
 
     try {
-      // Simulate wallet creation logic (this would be more complex in a real application)
-      const generatedWalletAddress = `0x${Math.random().toString(36).substring(2, 15)}`;
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/wallet/create-user`,
+        {
+          method: "POST",
+          headers: {
+            client_id: process.env.REACT_APP_CLIENT_ID,
+            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            "Content-Type": "application/json",
+          }as HeadersInit,
+          body: JSON.stringify(walletData),
+        }
+      );
 
+      if (!response.ok) {
+        throw new Error("Failed to create user");
+      }
+
+      const result = await response.json();
+      const walletAddress = result.result.wallet.wallet_address;
       // Store the wallet address in sessionStorage
-      sessionStorage.setItem('walletAddress', generatedWalletAddress);
-      setWalletAddress(generatedWalletAddress);
+      sessionStorage.setItem("walletAddress", walletAddress);
+      setWalletAddress(walletAddress);
+
+      if (!walletAddress) {
+        throw new Error("Wallet address not found in the response");
+      }
 
       // Show a success toast notification
-      toast.success(`Wallet created: ${generatedWalletAddress}`, {
+      toast.success(`Wallet created: ${walletAddress}`, {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -150,6 +170,10 @@ function App() {
               </a>
             </div>
           </div>
+
+          {/*Connect Wallet Button*/}
+          
+
 
           {/* Wallet Button Container at the Bottom */}
           <div className="wallet-container">
