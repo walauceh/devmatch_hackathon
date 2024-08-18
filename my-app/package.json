@@ -11,6 +11,7 @@
     "@thirdweb-dev/sdk": "^4.0.99",
     "@types/node": "^22.4.0",
     "@walletconnect/client": "^1.8.0",
+    "aptos": "^1.21.0",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
     "framer-motion": "^11.3.28",
