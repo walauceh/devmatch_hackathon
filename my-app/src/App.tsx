@@ -7,12 +7,14 @@ import CreateWalletModal from './CreateWalletModal';
 import Visa from './Visa-Page';
 import Card from './CardPage';
 import Walletpage from './Wallet-Page';
+import { InfuraProvider, formatEther, BrowserProvider } from 'ethers';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isExpanded, setIsExpanded] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [balance, setBalance] = useState<string | null>(null); // State to store wallet balance
 
   const toggleNav = () => {
     setIsExpanded(!isExpanded);
@@ -27,8 +29,57 @@ function App() {
     const storedWalletAddress = sessionStorage.getItem('walletAddress');
     if (storedWalletAddress) {
       setWalletAddress(storedWalletAddress);
+      fetchWalletBalance(storedWalletAddress); // Fetch balance on load
     }
   }, []);
+  
+  const fetchWalletBalance = async (walletAddress: string) => {
+    try {
+      const provider = new InfuraProvider('sepolia', process.env.REACT_APP_INFURA_PROJECT_ID); // Use only the project ID
+      const balanceInWei = await provider.getBalance(walletAddress);
+      const balanceInEth = formatEther(balanceInWei);
+      setBalance(balanceInEth);
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+    }
+  };
+
+  const connectWallet = async () => {
+    try {
+      if ((window as any).ethereum) {
+        const provider = new BrowserProvider((window as any).ethereum); // Updated to use BrowserProvider
+        const accounts = await provider.send('eth_requestAccounts', []);
+        const account = accounts[0];
+        sessionStorage.setItem('walletAddress', account);
+        setWalletAddress(account);
+        fetchWalletBalance(account); // Fetch balance after connection
+
+        toast.success(`Wallet connected: ${account}`, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("MetaMask is not installed.", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+    }
+  };
 
   const openModal = () => setIsModalOpen(true); // Function to open the modal
   const closeModal = () => setIsModalOpen(false); // Function to close the modal
@@ -108,7 +159,7 @@ function App() {
     });
   };
 
-  const renderPage = () => {
+    const renderPage = () => {
     switch (currentPage) {
       case 'profile':
         return <Profile />;
@@ -157,7 +208,7 @@ function App() {
                 onClick={() => goToPage('document')}
               >
                 <i className="bx bxs-file"></i>
-                <span className="nav__name">Document</span>
+                <span className="nav__name">Visa Application</span>
               </a>
               <a
                 href="#"
@@ -170,31 +221,36 @@ function App() {
             </div>
           </div>
 
-          {/*Connect Wallet Button*/}
-          
-
-
-          {/* Wallet Button Container at the Bottom */}
-          <div className="wallet-container">
-            <i className="bx bx-link"></i>
-            {isExpanded && (
-              walletAddress ? (
-                <div className="flex flex-col items-center">
-                  <span className="font-bold">Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</span>
-                  <button
-                    onClick={clearWalletAddress}
-                    className="Connect-Wallet-Button mt-4"
-                  >
-                    Disconnect Wallet
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="Connect-Wallet-Button"
-                  onClick={openModal} // Open the modal when clicked
-                >
-                  Create Wallet
-                </button>
+      {/* Wallet Button Container at the Bottom */}
+      <div className="wallet-container">
+        <i className="bx bx-link"></i>
+        {isExpanded && (
+          walletAddress ? (
+            <div className="flex flex-col items-center">
+              <span className="font-bold">Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-6)}</span>
+              <div className="font-bold">Balance: {balance ? `${parseFloat(balance).toFixed(3)} ETH` : 'Loading...'}</div>
+              <button
+                onClick={clearWalletAddress}
+                className="Connect-Wallet-Button mt-4"
+              >
+                Disconnect Wallet
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <button
+                className="Connect-Wallet-Button"
+                onClick={openModal}
+              >
+                Create Wallet
+              </button>
+              <button
+                className="Connect-Wallet-Button mt-4"
+                onClick={connectWallet}
+              >
+                Connect Wallet
+              </button>
+            </div>
               )
             )}
           </div>
