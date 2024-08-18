@@ -168,7 +168,7 @@ function App() {
       case 'document':
         return <Visa />; // Replace with your component
       default:
-        return <Walletpage />; // Replace with your home component
+        return <Walletpage balance={balance} walletAddress={walletAddress} />; // Pass the balance and walletAddress as props
     }
   };
 
@@ -268,7 +268,7 @@ function App() {
       )}
 
       {/* Toast Container */}
-      <ToastContainer />
+      <ToastContainer className="custom-toast-container"/>
     </div>
   );
 }

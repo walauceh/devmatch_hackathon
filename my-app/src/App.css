@@ -8,6 +8,17 @@
   pointer-events: none;
 }
 
+.custom-toast-container {
+  z-index: 9999; /* Ensures it's above most elements */
+  position: fixed; /* Keeps it in place as you scroll */
+  top: 10px; /* Adjust the position as needed */
+  left: 50%;
+  transform: translateX(-50%); /* Centers it horizontally */
+  width: auto; /* Ensures it doesn't take up too much space */
+}
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

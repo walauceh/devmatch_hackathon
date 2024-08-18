@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Wallet-Page.css';
 
-const HomePage: React.FC = () => {
+interface WalletPageProps {
+  balance: string | null;
+  walletAddress: string | null;
+}
+
+const HomePage: React.FC<WalletPageProps> = ({ balance, walletAddress }) => {
+  const [inputValue, setInputValue] = useState<number>(1); // State to manage the input value
+
+  // Define the exchange rates
+  const exchangeRates = {
+    MYR: 11615.52,
+    SGD: 3435.30,
+    CNY: 18695.47,
+  };
+
+  // Function to handle input value change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setInputValue(isNaN(value) ? 0 : value); // Handle invalid numbers
+  };
+
   return (
     <div className="homepage">
       <header className="balance-section">
         <div className="balance-info">
           <h2>Total balance</h2>
           <div className="balance-amount">
-            <span>181.73</span> MYR
+            <span>{balance ? `${parseFloat(balance).toFixed(3)} ETH` : '0.00 ETH'}</span>
           </div>
           <div className="balance-actions">
             <button className="action-button">Send</button>
@@ -24,21 +44,21 @@ const HomePage: React.FC = () => {
             <img src="EthereumIcon.webp" alt="MYR" />
             <span>Ethereum</span>
           </div>
-          <div className="currency-balance">0.0157</div>
+          <div className="currency-balance">{balance ? `${parseFloat(balance).toFixed(3)}` : '0.00'}</div>
         </div>
         <div className="currency-card">
           <div className="currency-info">
             <img src="Malaysia.jpg" alt="MYR" />
             <span>MYR</span>
           </div>
-          <div className="currency-balance">0.00</div>
+          <div className="currency-balance">{balance ? `${(parseFloat(balance) * 11615.52).toFixed(3)}` : '0.00'}</div>
         </div>
         <div className="currency-card">
           <div className="currency-info">
             <img src="Singapore.avif" alt="SGD" />
             <span>SGD</span>
           </div>
-          <div className="currency-balance">0</div>
+          <div className="currency-balance">0.00</div>
         </div>
         <div className="currency-card">
           <div className="currency-info">
@@ -95,14 +115,20 @@ const HomePage: React.FC = () => {
           <a href="#edit" className="edit-link">Edit</a>
         </div>
         <div className="exchange-rates-box">
-          <input type="number" placeholder="You send" className="exchange-input" defaultValue={10} />
+          <input
+            type="number"
+            placeholder="You send"
+            className="exchange-input"
+            value={inputValue}
+            onChange={handleInputChange}
+          />
           <ul className="exchange-list">
             <li className="exchange-item">
               <div className="exchange-info">
                 <img src="Malaysia.jpg" alt="ETH to MYR" />
                 <span>ETH → MYR</span>
               </div>
-              <div className="exchange-rate">11590.22 MYR</div>
+              <div className="exchange-rate">{(inputValue * exchangeRates.MYR).toFixed(2)} MYR</div>
               <button className="exchange-action">Send</button>
             </li>
             <li className="exchange-item">
@@ -110,7 +136,7 @@ const HomePage: React.FC = () => {
                 <img src="Singapore.avif" alt="ETH to SGD" />
                 <span>ETH → SGD</span>
               </div>
-              <div className="exchange-rate">3435.30 SGD</div>
+              <div className="exchange-rate">{(inputValue * exchangeRates.SGD).toFixed(2)} SGD</div>
               <button className="exchange-action">Send</button>
             </li>
             <li className="exchange-item">
@@ -118,7 +144,7 @@ const HomePage: React.FC = () => {
                 <img src="China.webp" alt="ETH to CNY" />
                 <span>ETH → CNY</span>
               </div>
-              <div className="exchange-rate">18695.47 CNY</div>
+              <div className="exchange-rate">{(inputValue * exchangeRates.CNY).toFixed(2)} CNY</div>
               <button className="exchange-action">Send</button>
             </li>
           </ul>
