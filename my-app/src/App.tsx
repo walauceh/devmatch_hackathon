@@ -4,6 +4,9 @@ import Profile from './profile';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateWalletModal from './CreateWalletModal';
+import Visa from './Visa-Page';
+import Card from './CardPage';
+import Walletpage from './Wallet-Page';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -30,19 +33,39 @@ function App() {
   const openModal = () => setIsModalOpen(true); // Function to open the modal
   const closeModal = () => setIsModalOpen(false); // Function to close the modal
 
-  const handleCreateWallet = (walletData: { name: string; email: string; ic: string; walletName: string }) => {
+  const handleCreateWallet = async (walletData: { name: string; email: string; ic: string; walletName: string }) => {
     console.log("Creating wallet with data:", walletData);
 
     try {
-      // Simulate wallet creation logic (this would be more complex in a real application)
-      const generatedWalletAddress = `0x${Math.random().toString(36).substring(2, 15)}`;
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/wallet/create-user`,
+        {
+          method: "POST",
+          headers: {
+            client_id: process.env.REACT_APP_CLIENT_ID,
+            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            "Content-Type": "application/json",
+          }as HeadersInit,
+          body: JSON.stringify(walletData),
+        }
+      );
 
+      if (!response.ok) {
+        throw new Error("Failed to create user");
+      }
+
+      const result = await response.json();
+      const walletAddress = result.result.wallet.wallet_address;
       // Store the wallet address in sessionStorage
-      sessionStorage.setItem('walletAddress', generatedWalletAddress);
-      setWalletAddress(generatedWalletAddress);
+      sessionStorage.setItem("walletAddress", walletAddress);
+      setWalletAddress(walletAddress);
+
+      if (!walletAddress) {
+        throw new Error("Wallet address not found in the response");
+      }
 
       // Show a success toast notification
-      toast.success(`Wallet created: ${generatedWalletAddress}`, {
+      toast.success(`Wallet created: ${walletAddress}`, {
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -90,20 +113,16 @@ function App() {
       case 'profile':
         return <Profile />;
       case 'viewCard':
-        return <div>View Card Page</div>;
+        return <Card />; // Replace with your component
       case 'document':
-        return <div>Document Page</div>;
+        return <Visa />; // Replace with your component
       default:
-        return <div>Home Page</div>;
+        return <Walletpage />; // Replace with your home component
     }
   };
 
   return (
     <div id="body-pd" className={isExpanded ? 'body-pd' : ''}>
-      <div className="logo-container">
-        <img src="logo512.png" alt="Logo" className="logo-image" />
-      </div>
-
       {/* Sidebar component merged into App.tsx */}
       <div className={`l-navbar ${isExpanded ? 'expander' : ''}`} id="navbar">
         <nav className="nav">
@@ -150,6 +169,10 @@ function App() {
               </a>
             </div>
           </div>
+
+          {/*Connect Wallet Button*/}
+          
+
 
           {/* Wallet Button Container at the Bottom */}
           <div className="wallet-container">

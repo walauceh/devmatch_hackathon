@@ -69,6 +69,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   transition: padding-left 0.3s ease; /* Smooth transition for padding change */
+  background-color: #E9F1F6;
 }
 
 #body-pd {
@@ -220,7 +221,7 @@ a {
 /* ========================= Wallet Section ===================== */
 
 /* From Uiverse.io by adamgiebl */ 
-button {
+.Connect-Wallet-Button {
   font-size: 18px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -238,7 +239,7 @@ button {
   z-index: 1;
 }
 
-button:before {
+.Connect-Wallet-Button:before {
   transition: 0.5s all ease;
   position: absolute;
   top: 0;
@@ -251,18 +252,18 @@ button:before {
   z-index: -1;
 }
 
-button:hover, button:focus {
+.Connect-Wallet-Button:hover, .Connect-Wallet-Button:focus {
   color: white;
 }
 
-button:hover:before, button:focus:before {
+.Connect-Wallet-Button:hover:before, .Connect-Wallet-Button:focus:before {
   transition: 0.5s all ease;
   left: 0;
   right: 0;
   opacity: 1;
 }
 
-button:active {
+.Connect-Wallet-Button:active {
   transform: scale(0.9);
 }
 
@@ -303,79 +304,4 @@ button:active {
   justify-content: center; /* Center the button horizontally */
   padding: 1rem; /* Add some padding for better spacing */
   transition: padding 0.3s ease; /* Smooth transition for padding */
-}
-
-
-/* ========== Create Wallet ============ */
-
-.form-container {
-  padding: 20px;
-  max-width: 600px;
-  margin: 20px auto;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Ensure labels and input fields are stacked vertically */
-.form-container label {
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-}
-
-/* Stack the inputs vertically */
-.form-container input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 1rem;
-  display: block; /* Ensure inputs are block elements */
-}
-
-/* Adjust the button layout */
-.form-container .form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-/* Specific button styling */
-.form-container button {
-  padding: 12px 24px;
-  border: 2px solid #007bff;
-  background-color: white;
-  color: #007bff;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 48%; /* Make buttons evenly sized */
-}
-
-.form-container button:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.form-container button:focus {
-  outline: none;
-}
-
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-  .form-container {
-    padding: 15px;
-    margin: 10px;
-  }
-
-  .form-container button {
-    font-size: 0.9rem;
-    width: 100%; /* Make buttons full width on smaller screens */
-    margin-bottom: 10px;
-  }
 }
