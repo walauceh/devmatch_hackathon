@@ -17,47 +17,53 @@ const CreateWalletModal: React.FC<CreateWalletModalProps> = ({ onSubmit, onClose
   };
 
   return (
-    <div className="form-container">
-      <h2 className="text-2xl font-bold mb-8">Create Wallet</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="ic">IC</label>
-        <input
-          type="text"
-          id="ic"
-          value={ic}
-          onChange={(e) => setIc(e.target.value)}
-          required
-        />
-        <label htmlFor="walletName">Wallet Name</label>
-        <input
-          type="text"
-          id="walletName"
-          value={walletName}
-          onChange={(e) => setWalletName(e.target.value)}
-          required
-        />
-        <div className="form-buttons">
-          <button type="button" onClick={onClose}>Cancel</button>
-          <button type="submit">Create</button>
-        </div>
-      </form>
-    </div>
+    <>
+      {/* Backdrop */}
+      <div className="modal-backdrop" onClick={onClose}></div>
+
+      {/* Modal content */}
+      <div className="form-container">
+        <h2 className="text-2xl font-bold mb-8">Create Wallet</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label htmlFor="ic">IC</label>
+          <input
+            type="text"
+            id="ic"
+            value={ic}
+            onChange={(e) => setIc(e.target.value)}
+            required
+          />
+          <label htmlFor="walletName">Wallet Name</label>
+          <input
+            type="text"
+            id="walletName"
+            value={walletName}
+            onChange={(e) => setWalletName(e.target.value)}
+            required
+          />
+          <div className="form-buttons">
+            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
