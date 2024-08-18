@@ -113,11 +113,11 @@ function App() {
       case 'profile':
         return <Profile />;
       case 'viewCard':
-        return <div>View Card Page</div>; // Replace with your component
+        return <Card />; // Replace with your component
       case 'document':
-        return <div>Document Page</div>; // Replace with your component
+        return <Visa />; // Replace with your component
       default:
-        return <div>Home Page</div>; // Replace with your home component
+        return <Walletpage />; // Replace with your home component
     }
   };
 
