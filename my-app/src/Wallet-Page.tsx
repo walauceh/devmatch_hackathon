@@ -97,7 +97,7 @@ const HomePage: React.FC<WalletPageProps> = ({ balance, walletAddress }) => {
           </li>
           <li className="transaction-item">
             <div className="transaction-info">
-              <img src="MR-DIY.png" alt="Mr. DIY" />
+              <img src="Mr-DIY.png" alt="Mr. DIY" />
               <div>
                 <h4>Mr. DIY</h4>
                 <span>4 Aug</span>

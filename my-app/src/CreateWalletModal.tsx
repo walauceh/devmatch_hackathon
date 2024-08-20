@@ -22,7 +22,7 @@ const CreateWalletModal: React.FC<CreateWalletModalProps> = ({ onSubmit, onClose
       <div className="modal-backdrop" onClick={onClose}></div>
 
       {/* Modal content */}
-      <div className="form-container">
+      <div className="form-container2">
         <h2 className="text-2xl font-bold mb-8">Create Wallet</h2>
         <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>

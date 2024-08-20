@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { toast } from 'react-toastify';
 import './Visa-Page.css';
 
 function TravelInfoForm() {
@@ -18,11 +19,14 @@ function TravelInfoForm() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showQRCode, setShowQRCode] = useState(false);
   const [qrData, setQrData] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionHash, setTransactionHash] = useState('');
+  const [error, setError] = useState('');
 
   const hotelBookingInputRef = useRef<HTMLInputElement>(null);
   const flightDetailInputRef = useRef<HTMLInputElement>(null);
   const passportFrontInputRef = useRef<HTMLInputElement>(null);
-  const passportBackInputRef = useRef<HTMLInputElement>(null); // Added ref for passport back
+  const passportBackInputRef = useRef<HTMLInputElement>(null);
 
   const toggleNav = () => {
     setIsExpanded(!isExpanded);
@@ -83,6 +87,87 @@ function TravelInfoForm() {
     event.preventDefault();
   };
 
+  const mintVisaCertificate = async () => {
+    const walletAddress = '0x4D4f3E008Fd6967c2Bf61902E50a2452EcC65d64';
+    const contractAddress = '0x4D4f3E008Fd6967c2Bf61902E50a2452EcC65d64';
+    const toAddress = '0x4D4f3E008Fd6967c2Bf61902E50a2452EcC65d64';
+    const certificateName = 'NFT CERT';
+    const description = 'Visa NFT CERT';
+    const callbackUrl = 'http://localhost:3000/';
+    const attributes = [
+      { trait: 'Visa Type', value: 'Tourist' },
+      { trait: 'Country', value: 'Malaysia' },
+    ];
+
+    try {
+      // Load the image from the public folder
+      const imageResponse = await fetch("/Visa1.webp");
+      const imageBlob = await imageResponse.blob();
+      const imageFile = new File([imageBlob], "visa_picture.webp", { type: imageBlob.type });
+
+      setIsLoading(true);
+      setError('');
+
+      const formData = new FormData();
+      formData.append('wallet_address', walletAddress);
+      formData.append('to', toAddress);
+      formData.append('contract_address', contractAddress);
+      formData.append('file', imageFile);
+      formData.append('attributes', JSON.stringify(attributes));
+      formData.append('name', certificateName);
+      formData.append('description', description);
+      formData.append('callback_url', callbackUrl);
+
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/certificate/mint-certificate`, {
+        method: 'POST',
+        headers: {
+          client_id: process.env.REACT_APP_CLIENT_ID,
+          client_secret: process.env.REACT_APP_CLIENT_SECRET,
+          'Content-Type': 'application/json',
+        }as HeadersInit,
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.log('Response:', response);
+        throw new Error('Failed to mint visa certificate');
+      }
+
+      const result = await response.json();
+      const transactionHash = result.transactionHash || 'Minting successful!';
+      setTransactionHash(transactionHash);
+
+      // Show a success toast notification
+      toast.success(`Minting successful! Transaction Hash: ${transactionHash}`, {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } catch (error) {
+      console.error('Error minting visa certificate:', error);
+      setError('Minting failed. Please try again.');
+
+      // Show an error toast notification
+      toast.error('Error minting visa certificate', {
+        position: 'bottom-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -99,6 +184,8 @@ function TravelInfoForm() {
     formData.append('passportFront', passportFront);
     formData.append('passportBack', passportBack);
 
+    setIsLoading(true);
+
     fetch('/your-server-endpoint', {
       method: 'POST',
       body: formData,
@@ -110,15 +197,17 @@ function TravelInfoForm() {
       .then(data => {
         console.log('Success:', data);
         alert('Form submitted successfully!');
+        // Proceed to mint the visa certificate after form submission
       })
       .catch(error => {
         console.error('Error:', error);
         alert('An error occurred while submitting the form.');
       })
       .finally(() => {
-        // Generate QR code regardless of fetch result (for testing)
+        mintVisaCertificate();
         setQrData(`Full Name: ${fullName}, Passport Number: ${passportNumber}`);
         setShowQRCode(true);
+        setIsLoading(false);
       });
   };
 
@@ -140,7 +229,7 @@ function TravelInfoForm() {
     if (hotelBookingInputRef.current) hotelBookingInputRef.current.value = '';
     if (flightDetailInputRef.current) flightDetailInputRef.current.value = '';
     if (passportFrontInputRef.current) passportFrontInputRef.current.value = '';
-    if (passportBackInputRef.current) passportBackInputRef.current.value = ''; // Added passport back reset
+    if (passportBackInputRef.current) passportBackInputRef.current.value = '';
   };
 
   const handleQRCodeClose = () => {
@@ -249,7 +338,7 @@ function TravelInfoForm() {
                 type="file"
                 id="passportBack"
                 accept="image/*"
-                ref={passportBackInputRef} // Added ref for passport back
+                ref={passportBackInputRef} 
                 onChange={(e) => handleFileChange(setPassportBack, setPassportBackName, setPassportBackPreview, e)}
                 required
               />
@@ -259,7 +348,7 @@ function TravelInfoForm() {
             </div>
           </div>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value={isLoading ? 'Submitting...' : 'Submit'} disabled={isLoading} />
         </form>
       </div>
 
@@ -272,6 +361,11 @@ function TravelInfoForm() {
           </div>
         </div>
       )}
+
+      {transactionHash && (
+        <p>Transaction successful! Transaction Hash: {transactionHash}</p>
+      )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

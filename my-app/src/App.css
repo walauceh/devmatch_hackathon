@@ -328,7 +328,7 @@ a {
   z-index: 999; /* Ensure the backdrop is behind the modal */
 }
 
-.form-container {
+.form-container2 {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -342,16 +342,16 @@ a {
   max-width: 90vw;
 }
 
-.form-container h2 {
+.form-container2 h2 {
   margin-bottom: 20px;
 }
 
-.form-container label {
+.form-container2 label {
   display: block;
   margin-bottom: 8px;
 }
 
-.form-container input {
+.form-container2 input {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
